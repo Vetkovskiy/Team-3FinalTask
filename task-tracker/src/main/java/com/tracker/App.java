@@ -1,4 +1,4 @@
-package com.tracker;
+package main.java.com.tracker;
 
 public class App {
     public static void main(String[] args) {
