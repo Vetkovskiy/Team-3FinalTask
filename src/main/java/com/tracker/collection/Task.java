@@ -25,6 +25,15 @@ public class Task {
         this.dueDate = dueDate;
     }
 
+    public Task(int id, String title, String description, Priority priority, Status status, LocalDate dueDate) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.priority = priority.ordinal() + 1;
+        this.status = status;
+        this.dueDate = dueDate;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -37,14 +46,21 @@ public class Task {
         NEW,
         PROCESSING,
         FAILED,
-        SUCCESS
+        SUCCESS;
+
+        public static String getValidValues() {
+            return "PENDING, PROCESSING, FAILED, COMPLETED";
+        }
     }
 
     public enum Priority {
         LOW,
         MEDIUM,
         HIGH,
-        URGENT
-    }
+        URGENT;
 
+        public static String getValidValues() {
+            return "LOW, MEDIUM, HIGH, URGENT";
+        }
+    }
 }
