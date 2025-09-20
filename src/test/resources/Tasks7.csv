@@ -1,0 +1,6 @@
+id,title,description,priority,status,dueDate
+1,Task1,First Task with empty date,LOW,PROCESSING,
+2,Task2,Second Task with only white spaces,MEDIUM,PROCESSING,
+3,Task3,Third Task,URGENT,NEW,22-09-2025
+4,Task3,Forth Task with wrong date format,URGENT,NEW,22/09/2025
+5,Task3,Fifth Task with something else in date,hello WORLD,NEW,heLLo WoRld

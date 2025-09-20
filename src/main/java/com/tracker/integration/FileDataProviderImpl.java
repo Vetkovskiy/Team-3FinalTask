@@ -61,17 +61,16 @@ public class FileDataProviderImpl implements FileDataProvider {
         }
     }
 
-    private String parseDescription(String description) {
-        if (description == null) {
-            return null;
+    private int parseId(String idValue) {
+        try {
+            int id = Integer.parseInt(idValue);
+            if (id <= 0) {
+                throw new FileProcessingException("id должен быть положительным");
+            }
+            return id;
+        } catch (Exception e) {
+            throw new FileProcessingException("Ошибка парсинга id: " + idValue, e);
         }
-        if (description.length() > 500) {
-            throw new FileProcessingException("Длина description не может быть больше 500 символов");
-        }
-        if (description.isBlank()) {
-            throw new FileProcessingException("Значение колонки description не может быть пустым");
-        }
-        return description.trim();
     }
 
     private String parseTitle(String title) {
@@ -87,16 +86,14 @@ public class FileDataProviderImpl implements FileDataProvider {
         return title.trim();
     }
 
-    private int parseId(String idValue) {
-        try {
-            int id = Integer.parseInt(idValue);
-            if (id <= 0) {
-                throw new FileProcessingException("id должен быть положительным");
-            }
-            return id;
-        } catch (Exception e) {
-            throw new FileProcessingException("Ошибка парсинга id: " + idValue, e);
+    private String parseDescription(String description) {
+        if (description == null) {
+            return null;
         }
+        if (description.length() > 500) {
+            throw new FileProcessingException("Длина description не может быть больше 500 символов");
+        }
+        return description.trim();
     }
 
     private Task.Priority parsePriority(String priority) throws FileProcessingException {
