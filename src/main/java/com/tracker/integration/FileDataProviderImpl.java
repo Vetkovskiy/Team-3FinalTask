@@ -1,14 +1,19 @@
 package com.tracker.integration;
 
-import com.tracker.collection.Task;
-import com.tracker.exception.FileProcessingException;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import com.tracker.collection.Task;
+import com.tracker.exception.FileProcessingException;
 
 public class FileDataProviderImpl implements FileDataProvider {
     public static final String PATTERN = "dd-MM-yyyy";
@@ -146,6 +151,20 @@ public class FileDataProviderImpl implements FileDataProvider {
 
     @Override
     public List<Task> generateRandomTasks(int count) {
-        throw new RuntimeException("Not yet implemented");
+        List<Task> tasks = new ArrayList<>();
+        Random random = new Random();
+        
+        for (int i = 0; i < count; i++) {
+            int id = i + 1;
+            String title = "Task_" + (100 + random.nextInt(900));
+            String description = "Generated task " + (i + 1);
+            Task.Priority priority = Task.Priority.values()[random.nextInt(Task.Priority.values().length)];
+            Task.Status status = Task.Status.values()[random.nextInt(Task.Status.values().length)];
+            LocalDate dueDate = LocalDate.now().plusDays(random.nextInt(30));
+            
+            tasks.add(new Task(id, title, description, priority, status, dueDate));
+        }
+        
+        return tasks;
     }
 }
