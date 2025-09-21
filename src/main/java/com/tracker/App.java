@@ -1,12 +1,13 @@
 package com.tracker;
 
+import java.util.List;
+import java.util.Scanner;
+
 import com.tracker.collection.Task;
 import com.tracker.manager.DataSourceManager;
 import com.tracker.manager.SearchManager;
 import com.tracker.manager.SortManager;
 import com.tracker.manager.TaskManager;
-import java.util.List;
-import java.util.Scanner;
 
 public class App {
     private static final Scanner scanner = new Scanner(System.in);
@@ -41,7 +42,7 @@ public class App {
             }
         }
         
-        scanner.close();
+        // Scanner закрывается автоматически при завершении программы
     }
     
     private static void showMainMenu() {
@@ -64,27 +65,24 @@ public class App {
         System.out.print("Выберите источник: ");
         
         String source = scanner.nextLine();
-        List<Task> tasks = null;
         
-        switch (source) {
+        List<Task> tasks = switch (source) {
             case "1" -> {
                 System.out.print("Введите путь к файлу: ");
                 String filePath = scanner.nextLine();
-                tasks = dataSourceManager.loadFromFile(filePath);
+                yield dataSourceManager.loadFromFile(filePath);
             }
             case "2" -> {
                 System.out.print("Сколько задач сгенерировать? ");
                 int count = Integer.parseInt(scanner.nextLine());
-                tasks = dataSourceManager.generateRandomTasks(count);
+                yield dataSourceManager.generateRandomTasks(count);
             }
-            case "3" -> {
-                tasks = dataSourceManager.loadFromManualInput();
-            }
+            case "3" -> dataSourceManager.loadFromManualInput();
             default -> {
                 System.out.println("❌ Некорректный выбор источника!");
-                return;
+                yield null;
             }
-        }
+        };
         
         if (tasks != null && !tasks.isEmpty()) {
             taskManager.addTasks(tasks);
