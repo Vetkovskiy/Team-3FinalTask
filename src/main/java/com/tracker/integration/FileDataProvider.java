@@ -1,11 +1,11 @@
 package com.tracker.integration;
 
-import com.tracker.collection.Task;
-
 import java.util.List;
 
+import com.tracker.collection.Task;
+
 /**
- * Интерфейс для работы с файлами от модуля файлов (Дмитрий Г)
+ * Интерфейс для работы с файлами от модуля файлов
  * Позволяет интегрироваться с функционалом чтения/записи файлов
  */
 public interface FileDataProvider {
@@ -23,5 +23,11 @@ public interface FileDataProvider {
      * @return true если сохранение успешно
      */
     boolean saveToFile(String filePath, List<Task> tasks);
-
+    
+    /**
+     * Сгенерировать случайные задачи
+     * @param count количество задач
+     * @return список сгенерированных задач
+     */
+    List<Task> generateRandomTasks(int count);
 }
