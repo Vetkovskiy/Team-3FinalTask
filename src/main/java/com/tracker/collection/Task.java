@@ -3,13 +3,13 @@ package com.tracker.collection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static com.tracker.integration.FileDataProviderImpl.PATTERN;
+// Убрали циклическую зависимость
 
 public class Task {
-    private int id;
-    private String title;
+    private final int id;
+    private final String title;
     private String description;
-    private int priority;
+    private final int priority;
     private Status status;
     private LocalDate dueDate;
 
@@ -63,12 +63,14 @@ public class Task {
 
     @Override
     public String toString() {
-        Priority[] values = Priority.values();
-        Priority value = values[priority - 1];
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN);
-
-        return String.join(",", String.valueOf(id), title, description, value.name(), status.name(), formatter.format(dueDate));
+        if (dueDate != null) {
+            Priority[] values = Priority.values();
+            Priority value = values[priority - 1];
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            return String.join(",", String.valueOf(id), title, description, value.name(), status.name(), formatter.format(dueDate));
+        } else {
+            return "Task{id=" + id + ", title='" + title + "', priority=" + priority + ", status=" + status + "}";
+        }
     }
 
     public enum Status {
