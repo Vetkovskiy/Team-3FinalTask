@@ -1,5 +1,7 @@
 package com.tracker.integration;
 
+import com.tracker.collection.Task;
+
 import java.util.List;
 
 /**
@@ -12,7 +14,7 @@ public interface FileDataProvider {
      * @param filePath путь к файлу
      * @return список загруженных задач
      */
-    List<Object> loadFromFile(String filePath);
+    List<Task> loadFromFile(String filePath);
     
     /**
      * Сохранить задачи в файл (append режим)
@@ -20,12 +22,12 @@ public interface FileDataProvider {
      * @param tasks список задач для сохранения
      * @return true если сохранение успешно
      */
-    boolean saveToFile(String filePath, List<Object> tasks);
+    boolean saveToFile(String filePath, List<Task> tasks);
     
     /**
      * Сгенерировать случайные задачи
      * @param count количество задач
      * @return список сгенерированных задач
      */
-    List<Object> generateRandomTasks(int count);
+    List<Task> generateRandomTasks(int count);
 }

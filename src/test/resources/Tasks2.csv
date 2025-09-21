@@ -1,0 +1,7 @@
+id,title,description,priority,status,dueDate
+-1,Task1,First Task NEGATIVE ID NOT ALLOWED,LOW,PROCESSING,20-09-2025
+abc,Task2,Second Task letters in ID not allowed,MEDIUM,PROCESSING,21-09-2025
+3,Task3,Third Task,URGENT,NEW,22-09-2025
+,Task4 with empty id,Fourth Task with empty id not allowed, LOW, NEW, 21-09-2025
+9147483647,Task5,Fifth Task > Integer.MAX_VALUE,URGENT,PROCESSING,21-09-2025
+0,Task6,Sixth Task Zero not allowed,URGENT,PROCESSING,21-09-2025

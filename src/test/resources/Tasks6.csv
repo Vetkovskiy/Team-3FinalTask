@@ -1,0 +1,6 @@
+id,title,description,priority,status,dueDate
+1,Task1,First Task with empty status,LOW,,20-09-2025
+2,Task2,Second Task only whitespaces in status column,MEDIUM,     ,21-09-2025
+3,Task3,Third Task with lowercase status,URGENT,NEW,22-09-2025
+4,Task3,Forth Task,URGENT,new,22-09-2025
+5,Task3,Fifth Task with something else in status,URGENT,HELLO world,22-09-2025

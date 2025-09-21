@@ -1,5 +1,7 @@
 package com.tracker.integration;
 
+import com.tracker.collection.Task;
+
 import java.util.List;
 
 /**
@@ -65,19 +67,19 @@ public class IntegrationManager {
     
     private static class MockFileDataProvider implements FileDataProvider {
         @Override
-        public List<Object> loadFromFile(String filePath) {
+        public List<Task> loadFromFile(String filePath) {
             System.out.println("📁 MockFileDataProvider: загрузка из файла " + filePath + " (заглушка)");
             return List.of();
         }
         
         @Override
-        public boolean saveToFile(String filePath, List<Object> tasks) {
+        public boolean saveToFile(String filePath, List<Task> tasks) {
             System.out.println("💾 MockFileDataProvider: сохранение в файл " + filePath + " (заглушка)");
             return true;
         }
         
         @Override
-        public List<Object> generateRandomTasks(int count) {
+        public List<Task> generateRandomTasks(int count) {
             System.out.println("🎲 MockFileDataProvider: генерация " + count + " случайных задач (заглушка)");
             return List.of();
         }
