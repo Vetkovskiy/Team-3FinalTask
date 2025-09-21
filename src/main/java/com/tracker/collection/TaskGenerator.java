@@ -3,6 +3,7 @@ package com.tracker.collection;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.stream.IntStream;
+
 import com.tracker.collection.Task.Status;
 
 
@@ -50,7 +51,7 @@ public class TaskGenerator {
 
     private static Status readStatus(Scanner sc) {
         while (true) {
-            System.out.print("Статус (TODO, IN_PROGRESS, DONE): ");
+            System.out.print("Статус (NEW, PROCESSING, FAILED, SUCCESS): ");
             try {
                 return Status.valueOf(sc.nextLine().trim().toUpperCase());
             } catch (Exception e) {
