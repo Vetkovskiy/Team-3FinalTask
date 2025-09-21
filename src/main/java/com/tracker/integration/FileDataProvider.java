@@ -23,11 +23,5 @@ public interface FileDataProvider {
      * @return true если сохранение успешно
      */
     boolean saveToFile(String filePath, List<Task> tasks);
-    
-    /**
-     * Сгенерировать случайные задачи
-     * @param count количество задач
-     * @return список сгенерированных задач
-     */
-    List<Task> generateRandomTasks(int count);
+
 }
