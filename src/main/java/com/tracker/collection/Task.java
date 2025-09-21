@@ -1,14 +1,17 @@
 package com.tracker.collection;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import static com.tracker.integration.FileDataProviderImpl.PATTERN;
 
 public class Task {
     private int id;
     private String title;
     private String description;
     private int priority;
-    private LocalDate dueDate;
     private Status status;
+    private LocalDate dueDate;
 
     public Task(int id, String title, int priority, Status status) {
         this.id = id;
@@ -34,12 +37,38 @@ public class Task {
         this.dueDate = dueDate;
     }
 
-    public Status getStatus() {
-        return status;
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public int getPriority() {
         return priority;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    @Override
+    public String toString() {
+        Priority[] values = Priority.values();
+        Priority value = values[priority - 1];
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN);
+
+        return String.join(",", String.valueOf(id), title, description, value.name(), status.name(), formatter.format(dueDate));
     }
 
     public enum Status {

@@ -3,9 +3,7 @@ package com.tracker.integration;
 import com.tracker.collection.Task;
 import com.tracker.exception.FileProcessingException;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -13,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileDataProviderImpl implements FileDataProvider {
-    private static final String PATTERN = "dd-MM-yyyy";
+    public static final String PATTERN = "dd-MM-yyyy";
 
     @Override
     public List<Task> loadFromFile(String filePath) {
@@ -131,7 +129,19 @@ public class FileDataProviderImpl implements FileDataProvider {
 
     @Override
     public boolean saveToFile(String filePath, List<Task> tasks) {
-        throw new RuntimeException("Not yet implemented");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+
+            for (Task task : tasks) {
+                writer.append(task.toString());
+                writer.newLine();
+                System.out.println("Успешно добавлено " + tasks.size() + " задач");
+            }
+            writer.flush();
+            return true;
+        } catch (Exception e) {
+            System.err.println("Не получилось сохранить в файл: " + tasks);
+            return false;
+        }
     }
 
     @Override
