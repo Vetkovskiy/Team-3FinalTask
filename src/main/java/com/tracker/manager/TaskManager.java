@@ -1,26 +1,47 @@
 package com.tracker.manager;
 
-import com.tracker.collection.Task;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.tracker.collection.Task;
+
 public class TaskManager {
+    private final List<Task> tasks;
+    private int nextId;
+
+    public TaskManager() {
+        this.tasks = new ArrayList<>();
+        this.nextId = 1;
+    }
+
     public List<Task> getAllTasks() {
-        throw new RuntimeException("Not yet implemented");
+        return new ArrayList<>(tasks);
     }
 
     public void addTasks(List<Task> tasks) {
-        throw new RuntimeException("Not yet implemented");
+        for (Task task : tasks) {
+            addTask(task);
+        }
     }
 
     public void updateTasks(List<Task> sortedTasks) {
-        throw new RuntimeException("Not yet implemented");
+        tasks.clear();
+        tasks.addAll(sortedTasks);
     }
 
     public int getNextId() {
-        throw new RuntimeException("Not yet implemented");
+        return nextId++;
     }
 
     public void addTask(Task newTask) {
-        throw new RuntimeException("Not yet implemented");
+        tasks.add(newTask);
+    }
+
+    public int getTaskCount() {
+        return tasks.size();
+    }
+
+    public boolean isEmpty() {
+        return tasks.isEmpty();
     }
 }
