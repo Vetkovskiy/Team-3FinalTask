@@ -13,7 +13,7 @@ public class TaskGenerator {
         CustomList<Task> list = new CustomList<>();
         IntStream.range(0, count).forEach(id -> {
             String title = "Task_" + (100 + rnd.nextInt(900));
-            int priority = 1 + rnd.nextInt(10);
+            int priority = 1 + rnd.nextInt(4); // 1..4 соответствует Priority
             Status status = Status.values()[rnd.nextInt(Status.values().length)];
             list.add(new Task(id, title, priority, status));
         });
@@ -29,7 +29,7 @@ public class TaskGenerator {
             System.out.print("Название: ");
             String title = sc.nextLine();
 
-            int priority = readInt(sc, "Приоритет (1–10): ");
+            int priority = readInt(sc, "Приоритет (1–4): ");
             Task.Status status = readStatus(sc);
 
             list.add(new Task(id, title, priority, status));
