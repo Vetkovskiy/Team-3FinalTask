@@ -1,5 +1,6 @@
 package com.tracker.integration;
 
+import com.tracker.collection.CustomList;
 import com.tracker.collection.Task;
 
 import java.util.List;
@@ -49,9 +50,9 @@ public class IntegrationManager {
     // Заглушки для тестирования
     private static class MockTaskProvider implements TaskProvider {
         @Override
-        public List<Object> getAllTasks() {
+        public CustomList<Object> getAllTasks() {
             System.out.println("📝 MockTaskProvider: получение задач (заглушка)");
-            return List.of();
+            return CustomList.of();
         }
         
         @Override
@@ -67,45 +68,45 @@ public class IntegrationManager {
     
     private static class MockFileDataProvider implements FileDataProvider {
         @Override
-        public List<Task> loadFromFile(String filePath) {
+        public CustomList<Task> loadFromFile(String filePath) {
             System.out.println("📁 MockFileDataProvider: загрузка из файла " + filePath + " (заглушка)");
-            return List.of();
+            return CustomList.of();
         }
         
         @Override
-        public boolean saveToFile(String filePath, List<Task> tasks) {
+        public boolean saveToFile(String filePath, CustomList<Task> tasks) {
             System.out.println("💾 MockFileDataProvider: сохранение в файл " + filePath + " (заглушка)");
             return true;
         }
         
         @Override
-        public List<Task> generateRandomTasks(int count) {
+        public CustomList<Task> generateRandomTasks(int count) {
             System.out.println("🎲 MockFileDataProvider: генерация " + count + " случайных задач (заглушка)");
-            return List.of();
+            return CustomList.of();
         }
     }
     
     private static class MockSortProvider implements SortProvider {
         @Override
-        public List<Object> sortById(List<Object> tasks) {
+        public CustomList<Object> sortById(CustomList<Object> tasks) {
             System.out.println("🔄 MockSortProvider: сортировка по ID (заглушка)");
             return tasks;
         }
         
         @Override
-        public List<Object> sortByTitle(List<Object> tasks) {
+        public CustomList<Object> sortByTitle(CustomList<Object> tasks) {
             System.out.println("🔄 MockSortProvider: сортировка по названию (заглушка)");
             return tasks;
         }
         
         @Override
-        public List<Object> sortByPriority(List<Object> tasks) {
+        public CustomList<Object> sortByPriority(CustomList<Object> tasks) {
             System.out.println("🔄 MockSortProvider: сортировка по приоритету (заглушка)");
             return tasks;
         }
         
         @Override
-        public List<Object> sortEvenOnly(List<Object> tasks) {
+        public CustomList<Object> sortEvenOnly(CustomList<Object> tasks) {
             System.out.println("🔄 MockSortProvider: сортировка чётных элементов (заглушка)");
             return tasks;
         }
@@ -113,21 +114,21 @@ public class IntegrationManager {
     
     private static class MockSearchProvider implements SearchProvider {
         @Override
-        public Object binarySearchById(List<Object> tasks, int id) {
+        public Object binarySearchById(CustomList<Object> tasks, int id) {
             System.out.println("🔍 MockSearchProvider: бинарный поиск по ID " + id + " (заглушка)");
             return null;
         }
         
         @Override
-        public List<Object> searchByTitle(List<Object> tasks, String title) {
+        public CustomList<Object> searchByTitle(CustomList<Object> tasks, String title) {
             System.out.println("🔍 MockSearchProvider: поиск по названию '" + title + "' (заглушка)");
-            return List.of();
+            return CustomList.of();
         }
         
         @Override
-        public List<Object> searchByPriority(List<Object> tasks, int priority) {
+        public CustomList<Object> searchByPriority(CustomList<Object> tasks, int priority) {
             System.out.println("🔍 MockSearchProvider: поиск по приоритету " + priority + " (заглушка)");
-            return List.of();
+            return CustomList.of();
         }
     }
 }

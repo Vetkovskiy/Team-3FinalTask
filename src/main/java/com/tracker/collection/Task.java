@@ -26,6 +26,7 @@ public class Task {
         this.description = description;
         this.priority = priority.ordinal() + 1;
         this.dueDate = dueDate;
+        this.status = Status.NEW;
     }
 
     public Task(int id, String title, String description, Priority priority, Status status, LocalDate dueDate) {

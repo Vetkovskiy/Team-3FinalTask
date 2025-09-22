@@ -1,30 +1,28 @@
 package com.tracker.manager;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.tracker.collection.CustomList;
 import com.tracker.collection.Task;
 
 public class TaskManager {
-    private final List<Task> tasks;
+    private final CustomList<Task> tasks;
     private int nextId;
 
     public TaskManager() {
-        this.tasks = new ArrayList<>();
+        this.tasks = new CustomList<>();
         this.nextId = 1;
     }
 
-    public List<Task> getAllTasks() {
-        return new ArrayList<>(tasks);
+    public CustomList<Task> getAllTasks() {
+        return new CustomList<>(tasks);
     }
 
-    public void addTasks(List<Task> tasks) {
+    public void addTasks(CustomList<Task> tasks) {
         for (Task task : tasks) {
             addTask(task);
         }
     }
 
-    public void updateTasks(List<Task> sortedTasks) {
+    public void updateTasks(CustomList<Task> sortedTasks) {
         tasks.clear();
         tasks.addAll(sortedTasks);
     }

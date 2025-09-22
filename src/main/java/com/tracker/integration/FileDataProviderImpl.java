@@ -1,27 +1,22 @@
 package com.tracker.integration;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import com.tracker.collection.CustomList;
+import com.tracker.collection.Task;
+import com.tracker.exception.FileProcessingException;
+
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-
-import com.tracker.collection.Task;
-import com.tracker.exception.FileProcessingException;
 
 public class FileDataProviderImpl implements FileDataProvider {
     public static final String PATTERN = "dd-MM-yyyy";
 
     @Override
-    public List<Task> loadFromFile(String filePath) {
+    public CustomList<Task> loadFromFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            List<Task> tasks = new ArrayList<>();
+            CustomList<Task> tasks = new CustomList<>();
             String line;
             boolean isFirstLine = true;
 
@@ -133,7 +128,7 @@ public class FileDataProviderImpl implements FileDataProvider {
     }
 
     @Override
-    public boolean saveToFile(String filePath, List<Task> tasks) {
+    public boolean saveToFile(String filePath, CustomList<Task> tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
 
             for (Task task : tasks) {
@@ -150,8 +145,8 @@ public class FileDataProviderImpl implements FileDataProvider {
     }
 
     @Override
-    public List<Task> generateRandomTasks(int count) {
-        List<Task> tasks = new ArrayList<>();
+    public CustomList<Task> generateRandomTasks(int count) {
+        CustomList<Task> tasks = new CustomList<>();
         Random random = new Random();
         
         for (int i = 0; i < count; i++) {

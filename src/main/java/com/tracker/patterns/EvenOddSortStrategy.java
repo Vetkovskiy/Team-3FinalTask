@@ -1,10 +1,9 @@
 package com.tracker.patterns;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
+import com.tracker.collection.CustomList;
 import com.tracker.patterns.strategy.SortStrategy;
+
+import java.util.Comparator;
 
 public class EvenOddSortStrategy<T> implements SortStrategy<T> {
     private final SortStrategy<T> baseStrategy;
@@ -14,10 +13,10 @@ public class EvenOddSortStrategy<T> implements SortStrategy<T> {
     }
 
     @Override
-    public void sort(List<T> list, Comparator<T> comparator) {
+    public void sort(CustomList<T> list, Comparator<T> comparator) {
         // Разделяем на четные и нечетные индексы
-        List<T> evenElements = new ArrayList<>();
-        List<T> oddElements = new ArrayList<>();
+        CustomList<T> evenElements = new CustomList<>();
+        CustomList<T> oddElements = new CustomList<>();
 
         for (int i = 0; i < list.size(); i++) {
             if (i % 2 == 0) {

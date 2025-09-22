@@ -25,11 +25,11 @@ public class TaskGenerator {
         IntStream.range(0, count).forEach(i -> {
             System.out.println("Введите задачу #" + (i + 1));
 
-            int id = readInt(sc, "ID: ");
+            int id = readId(sc);
             System.out.print("Название: ");
             String title = sc.nextLine();
 
-            int priority = readInt(sc, "Приоритет (1–10): ");
+            int priority = readPriority(sc);
             Task.Status status = readStatus(sc);
 
             list.add(new Task(id, title, priority, status));
@@ -38,10 +38,10 @@ public class TaskGenerator {
         return list;
     }
 
-    private static int readInt(Scanner sc, String prompt) {
+    private static int readId(Scanner sc) {
         while (true) {
             try {
-                System.out.print(prompt);
+                System.out.print("ID: ");
                 return Integer.parseInt(sc.nextLine().trim());
             } catch (Exception e) {
                 System.out.println("Неверный ввод, попробуйте снова.");
@@ -59,4 +59,21 @@ public class TaskGenerator {
             }
         }
     }
+
+    private static int readPriority(Scanner sc) {
+        while (true) {
+            try {
+                System.out.print("Приоритет (1–10): ");
+                int priority = Integer.parseInt(sc.nextLine().trim());
+                if (priority >= 1 && priority <= 10) {
+                    return priority;
+                } else {
+                    System.out.println("Приоритет должен быть от 1 до 10.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Неверный ввод, попробуйте снова.");
+            }
+        }
+    }
+
 }

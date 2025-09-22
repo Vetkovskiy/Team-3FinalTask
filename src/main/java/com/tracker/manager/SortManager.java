@@ -1,14 +1,13 @@
 package com.tracker.manager;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
+import com.tracker.collection.CustomList;
 import com.tracker.collection.Task;
 import com.tracker.patterns.TaskComparators;
 import com.tracker.patterns.strategy.BubbleSortStrategy;
 import com.tracker.patterns.strategy.InsertionSortStrategy;
 import com.tracker.patterns.strategy.SortStrategy;
+
+import java.util.Comparator;
 
 public class SortManager {
     private final SortStrategy<Task> bubbleSort;
@@ -19,12 +18,12 @@ public class SortManager {
         this.insertionSort = new InsertionSortStrategy<>();
     }
 
-    public List<Task> sortTasks(List<Task> allTasks, String sortType) {
+    public CustomList<Task> sortTasks(CustomList<Task> allTasks, String sortType) {
         if (allTasks == null || allTasks.isEmpty()) {
-            return new ArrayList<>();
+            return new CustomList<>();
         }
 
-        List<Task> tasksToSort = new ArrayList<>(allTasks);
+        CustomList<Task> tasksToSort = new CustomList<>(allTasks);
         Comparator<Task> comparator = getComparator(sortType);
         SortStrategy<Task> strategy = getSortStrategy(sortType);
 

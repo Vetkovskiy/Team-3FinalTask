@@ -1,13 +1,13 @@
 package com.tracker;
 
-import java.util.List;
-import java.util.Scanner;
-
+import com.tracker.collection.CustomList;
 import com.tracker.collection.Task;
 import com.tracker.manager.DataSourceManager;
 import com.tracker.manager.SearchManager;
 import com.tracker.manager.SortManager;
 import com.tracker.manager.TaskManager;
+
+import java.util.Scanner;
 
 public class App {
     private static final Scanner scanner = new Scanner(System.in);
@@ -65,8 +65,8 @@ public class App {
         System.out.print("Выберите источник: ");
         
         String source = scanner.nextLine();
-        
-        List<Task> tasks = switch (source) {
+
+        CustomList<Task> tasks = switch (source) {
             case "1" -> {
                 System.out.print("Введите путь к файлу: ");
                 String filePath = scanner.nextLine();
@@ -93,7 +93,7 @@ public class App {
     }
     
     private static void showAllTasks() {
-        List<Task> tasks = taskManager.getAllTasks();
+        CustomList<Task> tasks = taskManager.getAllTasks();
         if (tasks.isEmpty()) {
             System.out.println("📝 Список задач пуст");
             return;
@@ -116,7 +116,7 @@ public class App {
         System.out.print("Выберите тип сортировки: ");
         
         String sortType = scanner.nextLine();
-        List<Task> sortedTasks = sortManager.sortTasks(taskManager.getAllTasks(), sortType);
+        CustomList<Task> sortedTasks = sortManager.sortTasks(taskManager.getAllTasks(), sortType);
         
         if (sortedTasks != null) {
             taskManager.updateTasks(sortedTasks);
@@ -141,7 +141,7 @@ public class App {
             case "1" -> {
                 System.out.print("Введите название для поиска: ");
                 String title = scanner.nextLine();
-                List<Task> results = searchManager.searchByTitle(taskManager.getAllTasks(), title);
+                CustomList<Task> results = searchManager.searchByTitle(taskManager.getAllTasks(), title);
                 displaySearchResults(results);
             }
             case "2" -> {
@@ -156,7 +156,7 @@ public class App {
                         default -> "LOW";
                     }
                 );
-                List<Task> results = searchManager.searchByPriority(taskManager.getAllTasks(), priority);
+                CustomList<Task> results = searchManager.searchByPriority(taskManager.getAllTasks(), priority);
                 displaySearchResults(results);
             }
             case "3" -> {
@@ -172,7 +172,7 @@ public class App {
             case "4" -> {
                 System.out.print("Введите термин для поиска: ");
                 String term = scanner.nextLine();
-                List<Task> results = searchManager.searchUsingStreams(taskManager.getAllTasks(), term);
+                CustomList<Task> results = searchManager.searchUsingStreams(taskManager.getAllTasks(), term);
                 displaySearchResults(results);
             }
             default -> System.out.println("❌ Некорректный тип поиска!");
@@ -197,14 +197,14 @@ public class App {
             case "2" -> {
                 System.out.print("Введите термин для поиска: ");
                 String term = scanner.nextLine();
-                List<Task> results = searchManager.searchUsingStreams(taskManager.getAllTasks(), term);
+                CustomList<Task> results = searchManager.searchUsingStreams(taskManager.getAllTasks(), term);
                 displaySearchResults(results);
             }
             default -> System.out.println("❌ Некорректный тип поиска!");
         }
     }
     
-    private static void displaySearchResults(List<Task> results) {
+    private static void displaySearchResults(CustomList<Task> results) {
         if (results.isEmpty()) {
             System.out.println("❌ Совпадений не найдено");
         } else {

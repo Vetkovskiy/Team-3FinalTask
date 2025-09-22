@@ -1,5 +1,7 @@
 package com.tracker.integration;
 
+import com.tracker.collection.CustomList;
+
 import java.util.List;
 
 /**
@@ -13,7 +15,7 @@ public interface SearchProvider {
      * @param id ID для поиска
      * @return найденная задача или null
      */
-    Object binarySearchById(List<Object> tasks, int id);
+    Object binarySearchById(CustomList<Object> tasks, int id);
     
     /**
      * Поиск по названию
@@ -21,7 +23,7 @@ public interface SearchProvider {
      * @param title название для поиска
      * @return список найденных задач
      */
-    List<Object> searchByTitle(List<Object> tasks, String title);
+    CustomList<Object> searchByTitle(CustomList<Object> tasks, String title);
     
     /**
      * Поиск по приоритету
@@ -29,5 +31,5 @@ public interface SearchProvider {
      * @param priority приоритет для поиска
      * @return список найденных задач
      */
-    List<Object> searchByPriority(List<Object> tasks, int priority);
+    CustomList<Object> searchByPriority(CustomList<Object> tasks, int priority);
 }
