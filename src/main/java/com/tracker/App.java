@@ -2,14 +2,15 @@ package com.tracker;
 
 import com.tracker.collection.CustomList;
 import com.tracker.collection.Task;
-import com.tracker.integration.FileDataProvider;
-import com.tracker.integration.FileDataProviderImpl;
+
 import com.tracker.manager.DataSourceManager;
 import com.tracker.manager.SearchManager;
 import com.tracker.manager.SortManager;
 import com.tracker.manager.TaskManager;
 
 import java.util.Scanner;
+
+
 
 public class App {
     private static final Scanner scanner = new Scanner(System.in);
@@ -43,8 +44,8 @@ public class App {
                 default -> System.out.println("❌ Некорректный ввод! Попробуйте снова.");
             }
         }
-        
-        // Scanner закрывается автоматически при завершении программы
+
+        scanner.close();
     }
     
     private static void showMainMenu() {
