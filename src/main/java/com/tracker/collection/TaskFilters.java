@@ -43,7 +43,7 @@ public final class TaskFilters {
      */
     public static void findMinPriority(CustomList<Task> taskList) {
         taskList.stream()
-                .min(Comparator.comparingInt(Task::getPriority))
+                .min(Comparator.comparing(Task::getPriority))
                 .ifPresentOrElse(System.out::println,
                         () -> System.out.println("Список пуст — минимальный приоритет не найден")
                 );
@@ -54,7 +54,7 @@ public final class TaskFilters {
      */
     public static void findMaxPriority(CustomList<Task> taskList) {
         taskList.stream()
-                .max(Comparator.comparingInt(Task::getPriority))
+                .max(Comparator.comparing(Task::getPriority))
                 .ifPresentOrElse(
                         System.out::println,
                         () -> System.out.println("Список пуст — максимальный приоритет не найден")

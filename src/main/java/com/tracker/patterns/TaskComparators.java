@@ -15,7 +15,7 @@ public class TaskComparators {
     }
 
     public static Comparator<Task> byPriority() {
-        return Comparator.comparingInt(Task::getPriority);
+        return Comparator.comparing(Task::getPriority);
     }
 
     public static Comparator<Task> byStatus() {

@@ -1,12 +1,16 @@
 package com.tracker;
 
+import com.tracker.collection.CustomList;
 import com.tracker.collection.Task;
+
 import com.tracker.manager.DataSourceManager;
 import com.tracker.manager.SearchManager;
 import com.tracker.manager.SortManager;
 import com.tracker.manager.TaskManager;
-import java.util.List;
+
 import java.util.Scanner;
+
+
 
 public class App {
     private static final Scanner scanner = new Scanner(System.in);
@@ -40,7 +44,7 @@ public class App {
                 default -> System.out.println("❌ Некорректный ввод! Попробуйте снова.");
             }
         }
-        
+
         scanner.close();
     }
     
@@ -64,27 +68,24 @@ public class App {
         System.out.print("Выберите источник: ");
         
         String source = scanner.nextLine();
-        List<Task> tasks = null;
-        
-        switch (source) {
+
+        CustomList<Task> tasks = switch (source) {
             case "1" -> {
                 System.out.print("Введите путь к файлу: ");
                 String filePath = scanner.nextLine();
-                tasks = dataSourceManager.loadFromFile(filePath);
+                yield dataSourceManager.loadFromFile(filePath);
             }
             case "2" -> {
                 System.out.print("Сколько задач сгенерировать? ");
                 int count = Integer.parseInt(scanner.nextLine());
-                tasks = dataSourceManager.generateRandomTasks(count);
+                yield dataSourceManager.generateRandomTasks(count);
             }
-            case "3" -> {
-                tasks = dataSourceManager.loadFromManualInput();
-            }
+            case "3" -> dataSourceManager.loadFromManualInput();
             default -> {
                 System.out.println("❌ Некорректный выбор источника!");
-                return;
+                yield null;
             }
-        }
+        };
         
         if (tasks != null && !tasks.isEmpty()) {
             taskManager.addTasks(tasks);
@@ -95,7 +96,7 @@ public class App {
     }
     
     private static void showAllTasks() {
-        List<Task> tasks = taskManager.getAllTasks();
+        CustomList<Task> tasks = taskManager.getAllTasks();
         if (tasks.isEmpty()) {
             System.out.println("📝 Список задач пуст");
             return;
@@ -115,10 +116,11 @@ public class App {
         System.out.println("4. Быстрая сортировка (QuickSort)");
         System.out.println("5. Сортировка пузырьком (BubbleSort)");
         System.out.println("6. Сортировка слиянием (MergeSort)");
+        //System.out.println("6. Сортировка EvenOddSort");
         System.out.print("Выберите тип сортировки: ");
         
         String sortType = scanner.nextLine();
-        List<Task> sortedTasks = sortManager.sortTasks(taskManager.getAllTasks(), sortType);
+        CustomList<Task> sortedTasks = sortManager.sortTasks(taskManager.getAllTasks(), sortType);
         
         if (sortedTasks != null) {
             taskManager.updateTasks(sortedTasks);
@@ -143,7 +145,7 @@ public class App {
             case "1" -> {
                 System.out.print("Введите название для поиска: ");
                 String title = scanner.nextLine();
-                List<Task> results = searchManager.searchByTitle(taskManager.getAllTasks(), title);
+                CustomList<Task> results = searchManager.searchByTitle(taskManager.getAllTasks(), title);
                 displaySearchResults(results);
             }
             case "2" -> {
@@ -158,7 +160,7 @@ public class App {
                         default -> "LOW";
                     }
                 );
-                List<Task> results = searchManager.searchByPriority(taskManager.getAllTasks(), priority);
+                CustomList<Task> results = searchManager.searchByPriority(taskManager.getAllTasks(), priority);
                 displaySearchResults(results);
             }
             case "3" -> {
@@ -174,7 +176,7 @@ public class App {
             case "4" -> {
                 System.out.print("Введите термин для поиска: ");
                 String term = scanner.nextLine();
-                List<Task> results = searchManager.searchUsingStreams(taskManager.getAllTasks(), term);
+                CustomList<Task> results = searchManager.searchUsingStreams(taskManager.getAllTasks(), term);
                 displaySearchResults(results);
             }
             default -> System.out.println("❌ Некорректный тип поиска!");
@@ -199,14 +201,14 @@ public class App {
             case "2" -> {
                 System.out.print("Введите термин для поиска: ");
                 String term = scanner.nextLine();
-                List<Task> results = searchManager.searchUsingStreams(taskManager.getAllTasks(), term);
+                CustomList<Task> results = searchManager.searchUsingStreams(taskManager.getAllTasks(), term);
                 displaySearchResults(results);
             }
             default -> System.out.println("❌ Некорректный тип поиска!");
         }
     }
     
-    private static void displaySearchResults(List<Task> results) {
+    private static void displaySearchResults(CustomList<Task> results) {
         if (results.isEmpty()) {
             System.out.println("❌ Совпадений не найдено");
         } else {
@@ -228,37 +230,7 @@ public class App {
     }
     
     private static void addTaskManually() {
-        System.out.println("\n➕ ДОБАВЛЕНИЕ ЗАДАЧИ:");
-        System.out.print("Название: ");
-        String title = scanner.nextLine();
-        System.out.print("Описание: ");
-        String description = scanner.nextLine();
-        System.out.println("Приоритет (1-LOW, 2-MEDIUM, 3-HIGH, 4-URGENT): ");
-        String priorityInput = scanner.nextLine();
-        System.out.print("Дата выполнения (YYYY-MM-DD): ");
-        String dateInput = scanner.nextLine();
-        
-        try {
-            Task.Priority priority = Task.Priority.valueOf(
-                switch(priorityInput) {
-                    case "1" -> "LOW";
-                    case "2" -> "MEDIUM";
-                    case "3" -> "HIGH"; 
-                    case "4" -> "URGENT";
-                    default -> "MEDIUM";
-                }
-            );
-            
-            java.time.LocalDate dueDate = java.time.LocalDate.parse(dateInput);
-            int newId = taskManager.getNextId();
-            
-            Task newTask = new Task(newId, title, description, priority, dueDate);
-            taskManager.addTask(newTask);
-            
-            System.out.println("✅ Задача добавлена: " + newTask);
-        } catch (Exception e) {
-            System.out.println("❌ Ошибка при добавлении задачи: " + e.getMessage());
-        }
+        dataSourceManager.loadFromManualInput();
     }
     
     private static void shutdown() {

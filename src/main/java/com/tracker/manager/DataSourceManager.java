@@ -3,8 +3,8 @@ package com.tracker.manager;
 import java.util.List;
 import java.util.Scanner;
 
+import com.tracker.collection.CustomList;
 import com.tracker.collection.Task;
-import com.tracker.collection.TaskGenerator;
 import com.tracker.integration.FileDataProvider;
 import com.tracker.integration.FileDataProviderImpl;
 
@@ -17,28 +17,27 @@ public class DataSourceManager {
         this.scanner = new Scanner(System.in);
     }
 
-    public List<Task> loadFromFile(String filePath) {
+    public CustomList<Task> loadFromFile(String filePath) {
         try {
             return fileDataProvider.loadFromFile(filePath);
         } catch (Exception e) {
             System.err.println("Ошибка загрузки из файла: " + e.getMessage());
-            return List.of();
+            return CustomList.of();
         }
     }
 
-    public List<Task> generateRandomTasks(int count) {
+    public CustomList<Task> generateRandomTasks(int count) {
         try {
             return fileDataProvider.generateRandomTasks(count);
         } catch (Exception e) {
             System.err.println("Ошибка генерации задач: " + e.getMessage());
-            // Fallback на TaskGenerator
-            return TaskGenerator.generateRandom(count).stream().toList();
+            return CustomList.of();
         }
     }
 
-    public List<Task> loadFromManualInput() {
+    public CustomList<Task> loadFromManualInput() {
         System.out.print("Сколько задач добавить? ");
         int count = Integer.parseInt(scanner.nextLine());
-        return TaskGenerator.generateManual(count, scanner).stream().toList();
+        return fileDataProvider.generateManualTasks(count, scanner);
     }
 }

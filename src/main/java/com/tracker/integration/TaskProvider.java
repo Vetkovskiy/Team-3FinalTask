@@ -1,5 +1,7 @@
 package com.tracker.integration;
 
+import com.tracker.collection.CustomList;
+
 import java.util.List;
 
 /**
@@ -11,7 +13,7 @@ public interface TaskProvider {
      * Получить все задачи
      * @return список всех задач
      */
-    List<Object> getAllTasks();
+    CustomList<Object> getAllTasks();
     
     /**
      * Получить количество задач

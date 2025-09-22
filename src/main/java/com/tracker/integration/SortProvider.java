@@ -1,6 +1,6 @@
 package com.tracker.integration;
 
-import java.util.List;
+import com.tracker.collection.CustomList;
 
 /**
  * Интерфейс для сортировки от модуля паттернов (Дмитрий М)
@@ -12,26 +12,26 @@ public interface SortProvider {
      * @param tasks список задач
      * @return отсортированный список
      */
-    List<Object> sortById(List<Object> tasks);
+    CustomList<Object> sortById(CustomList<Object> tasks);
     
     /**
      * Отсортировать задачи по названию
      * @param tasks список задач
      * @return отсортированный список
      */
-    List<Object> sortByTitle(List<Object> tasks);
+    CustomList<Object> sortByTitle(CustomList<Object> tasks);
     
     /**
      * Отсортировать задачи по приоритету
      * @param tasks список задач
      * @return отсортированный список
      */
-    List<Object> sortByPriority(List<Object> tasks);
+    CustomList<Object> sortByPriority(CustomList<Object> tasks);
     
     /**
      * Сортировка с условием "чётные сортируем, нечётные оставляем"
      * @param tasks список задач
      * @return отсортированный список
      */
-    List<Object> sortEvenOnly(List<Object> tasks);
+    CustomList<Object> sortEvenOnly(CustomList<Object> tasks);
 }

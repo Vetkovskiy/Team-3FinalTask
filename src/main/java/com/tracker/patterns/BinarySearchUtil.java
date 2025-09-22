@@ -1,15 +1,17 @@
 package com.tracker.patterns;
 
+import com.tracker.collection.CustomList;
+
 import java.util.Comparator;
 import java.util.List;
 
 public class BinarySearchUtil {
 
-    public static <T> int binarySearch(List<T> list, T key, Comparator<T> comparator) {
+    public static <T> int binarySearch(CustomList<T> list, T key, Comparator<T> comparator) {
         return binarySearch(list, key, comparator, 0, list.size() - 1);
     }
 
-    private static <T> int binarySearch(List<T> list, T key, Comparator<T> comparator,
+    private static <T> int binarySearch(CustomList<T> list, T key, Comparator<T> comparator,
                                         int low, int high) {
         if (low > high) {
             return -1;

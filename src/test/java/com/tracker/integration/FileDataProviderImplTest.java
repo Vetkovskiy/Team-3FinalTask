@@ -1,5 +1,6 @@
 package com.tracker.integration;
 
+import com.tracker.collection.CustomList;
 import com.tracker.collection.Task;
 import com.tracker.exception.FileProcessingException;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +24,7 @@ class FileDataProviderImplTest {
         //Given
         String filePath = "src/test/resources/Tasks1.csv";
         //When
-        List<Task> tasks = provider.loadFromFile(filePath);
+        CustomList<Task> tasks = provider.loadFromFile(filePath);
         //Then
         assertEquals(3, tasks.size());
     }
@@ -34,7 +35,7 @@ class FileDataProviderImplTest {
         //Given
         String filePath = "src/test/resources/Tasks2.csv";
         //When
-        List<Task> tasks = provider.loadFromFile(filePath);
+        CustomList<Task> tasks = provider.loadFromFile(filePath);
         //Then
         assertEquals(1, tasks.size());
     }
@@ -45,7 +46,7 @@ class FileDataProviderImplTest {
         //Given
         String filePath = "src/test/resources/Tasks3.csv";
         //When
-        List<Task> tasks = provider.loadFromFile(filePath);
+        CustomList<Task> tasks = provider.loadFromFile(filePath);
         //Then
         assertEquals(1, tasks.size());
     }
@@ -56,7 +57,7 @@ class FileDataProviderImplTest {
         //Given
         String filePath = "src/test/resources/Tasks4.csv";
         //When
-        List<Task> tasks = provider.loadFromFile(filePath);
+        CustomList<Task> tasks = provider.loadFromFile(filePath);
         //Then
         assertEquals(3, tasks.size());
     }
@@ -67,7 +68,7 @@ class FileDataProviderImplTest {
         //Given
         String filePath = "src/test/resources/Tasks5.csv";
         //When
-        List<Task> tasks = provider.loadFromFile(filePath);
+        CustomList<Task> tasks = provider.loadFromFile(filePath);
         //Then
         assertEquals(2, tasks.size());
     }
@@ -78,7 +79,7 @@ class FileDataProviderImplTest {
         //Given
         String filePath = "src/test/resources/Tasks6.csv";
         //When
-        List<Task> tasks = provider.loadFromFile(filePath);
+        CustomList<Task> tasks = provider.loadFromFile(filePath);
         //Then
         assertEquals(2, tasks.size());
     }
@@ -89,7 +90,7 @@ class FileDataProviderImplTest {
         //Given
         String filePath = "src/test/resources/Tasks7.csv";
         //When
-        List<Task> tasks = provider.loadFromFile(filePath);
+        CustomList<Task> tasks = provider.loadFromFile(filePath);
         //Then
         assertEquals(1, tasks.size());
     }
@@ -101,7 +102,7 @@ class FileDataProviderImplTest {
         String filePath = "src/test/resources/Tasks8.csv";
         createEmptyFile(filePath);
         //When
-        boolean result = provider.saveToFile(filePath, List.of());
+        boolean result = provider.saveToFile(filePath, CustomList.of());
         //Then
         assertTrue(result);
         deleteFile(filePath);
@@ -113,9 +114,16 @@ class FileDataProviderImplTest {
         //Given
         String filePath = "src/test/resources/Tasks8.csv";
         createEmptyFile(filePath);
-        Task task = new Task(1,"Test Title", "Test Descr", Task.Priority.HIGH, Task.Status.NEW, LocalDate.now());
+        Task task = new Task.Builder()
+                .id(1)
+                .title("Test Title")
+                .description("Test Descr")
+                .priority(Task.Priority.HIGH)
+                .status(Task.Status.NEW)
+                .dueDate(LocalDate.now())
+                .build();
         //When
-        boolean result = provider.saveToFile(filePath, List.of(task));
+        boolean result = provider.saveToFile(filePath, CustomList.of(task));
         //Then
         assertTrue(result);
         deleteFile(filePath);
@@ -127,11 +135,32 @@ class FileDataProviderImplTest {
         //Given
         String filePath = "src/test/resources/Tasks8.csv";
         createEmptyFile(filePath);
-        Task task1 = new Task(1,"Test Title", "Test Descr", Task.Priority.HIGH, Task.Status.NEW, LocalDate.now());
-        Task task2 = new Task(1,"Test Title", "Test Descr", Task.Priority.HIGH, Task.Status.NEW, LocalDate.now());
-        Task task3 = new Task(1,"Test Title", "Test Descr", Task.Priority.HIGH, Task.Status.NEW, LocalDate.now());
+        Task task1 = new Task.Builder()
+                .id(1)
+                .title("Test Title")
+                .description("Test Descr")
+                .priority(Task.Priority.HIGH)
+                .status(Task.Status.NEW)
+                .dueDate(LocalDate.now())
+                .build();
+        Task task2 = new Task.Builder()
+                .id(1)
+                .title("Test Title")
+                .description("Test Descr")
+                .priority(Task.Priority.HIGH)
+                .status(Task.Status.NEW)
+                .dueDate(LocalDate.now())
+                .build();
+        Task task3 = new Task.Builder()
+                .id(1)
+                .title("Test Title")
+                .description("Test Descr")
+                .priority(Task.Priority.HIGH)
+                .status(Task.Status.NEW)
+                .dueDate(LocalDate.now())
+                .build();;
         //When
-        boolean result = provider.saveToFile(filePath, List.of(task1, task2, task3));
+        boolean result = provider.saveToFile(filePath, CustomList.of(task1, task2, task3));
         //Then
         assertTrue(result);
         deleteFile(filePath);
@@ -142,9 +171,16 @@ class FileDataProviderImplTest {
     void test11() {
         //Given
         String filePath = "src/test/resources/";
-        Task task = new Task(1,"Test Title", "Test Descr", Task.Priority.HIGH, Task.Status.NEW, LocalDate.now());
+        Task task = new Task.Builder()
+                .id(1)
+                .title("Test Title")
+                .description("Test Descr")
+                .priority(Task.Priority.HIGH)
+                .status(Task.Status.NEW)
+                .dueDate(LocalDate.now())
+                .build();
         //When
-        boolean result = provider.saveToFile(filePath, List.of(task));
+        boolean result = provider.saveToFile(filePath, CustomList.of(task));
         //Then
         assertFalse(result);
     }
@@ -152,7 +188,7 @@ class FileDataProviderImplTest {
     @Test
     @DisplayName("Should throw FileProcessingException when file doesn't exist")
     void test12() {
-        assertThrows(FileProcessingException.class, new MyExecutable() );
+        assertThrows(FileProcessingException.class, new MyExecutable());
     }
 
     class MyExecutable implements Executable {
@@ -175,7 +211,7 @@ class FileDataProviderImplTest {
         try {
             File file = new File(filePath);
             file.createNewFile();
-            
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
