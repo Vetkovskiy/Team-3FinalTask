@@ -15,6 +15,11 @@
 - Владимир Ветковский — коллекции и стримы
 
 
-## ▶️ Запуск
-mvn clean install
-mvn exec:java -Dexec.mainClass="com.tracker.App"
+## ▶️ Запуск тестов (без JUnit):
+Сборка тест-классов:
+javac -cp "src/main/java" -d "target/test-classes" src/test/java/com/tracker/*.java
+Если ругается на AppTest (JUnit), временно не компилируйте его или удалите/закомментируйте.
+Запуск:
+java -cp "target/classes;target/test-classes" com.tracker.SortTests
+java -cp "target/classes;target/test-classes" com.tracker.SearchTests
+java -cp "target/classes;target/test-classes" com.tracker.FileParsingTests
