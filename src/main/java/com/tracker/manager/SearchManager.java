@@ -23,7 +23,7 @@ public class SearchManager {
         if (allTasks == null || title == null) {
             return new CustomList<>();
         }
-
+        result.clear();
         allTasks.stream()
                 .filter(task -> task.getTitle().toLowerCase().contains(title.toLowerCase()))
                 .forEach(result::add);
@@ -34,7 +34,7 @@ public class SearchManager {
         if (allTasks == null || priority == null) {
             return new CustomList<>();
         }
-
+        result.clear();
         allTasks.stream()
                 .filter(task -> task.getPriority() == priority)
                 .forEach(result::add);
@@ -45,7 +45,7 @@ public class SearchManager {
         if (allTasks == null || allTasks.isEmpty()) {
             return null;
         }
-
+        result.clear();
         // Создаем копию и сортируем по ID для бинарного поиска
         CustomList<Task> sortedTasks = new CustomList<>(allTasks);
         sortedTasks.sort(TaskComparators.byId());
@@ -68,7 +68,7 @@ public class SearchManager {
         if (allTasks == null || term == null) {
             return new CustomList<>();
         }
-
+        result.clear();
         allTasks.stream()
                 .filter(task ->
                         task.getTitle().toLowerCase().contains(term.toLowerCase()) ||
