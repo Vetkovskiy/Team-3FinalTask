@@ -25,6 +25,7 @@ public class Task {
         this.title = title;
         this.description = description;
         this.priority = priority.ordinal() + 1;
+        this.status = Status.NEW;
         this.dueDate = dueDate;
     }
 
@@ -80,7 +81,7 @@ public class Task {
         SUCCESS;
 
         public static String getValidValues() {
-            return "PENDING, PROCESSING, FAILED, COMPLETED";
+            return "NEW, PROCESSING, FAILED, SUCCESS";
         }
     }
 
