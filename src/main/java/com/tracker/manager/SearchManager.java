@@ -36,7 +36,7 @@ public class SearchManager {
         }
 
         allTasks.stream()
-                .filter(task -> task.getPriority() == priority.ordinal() + 1)
+                .filter(task -> task.getPriority() == priority)
                 .forEach(result::add);
         return result;
     }
@@ -51,7 +51,14 @@ public class SearchManager {
         sortedTasks.sort(TaskComparators.byId());
 
         // Создаем задачу для поиска
-        Task searchTask = new Task(id, "", "", Task.Priority.LOW, Task.Status.NEW, null);
+        Task searchTask = new Task.Builder()
+                .id(id)
+                .title("")
+                .description("")
+                .priority(Task.Priority.LOW)
+                .status(Task.Status.NEW)
+                .dueDate(null)
+                .build();
 
         int index = BinarySearchUtil.binarySearch(sortedTasks, searchTask, TaskComparators.byId());
         return index >= 0 ? sortedTasks.get(index) : null;

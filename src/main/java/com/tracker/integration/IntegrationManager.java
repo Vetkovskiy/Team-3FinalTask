@@ -4,6 +4,7 @@ import com.tracker.collection.CustomList;
 import com.tracker.collection.Task;
 
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Менеджер интеграции - центральный компонент для работы с модулями команды
@@ -82,6 +83,12 @@ public class IntegrationManager {
         @Override
         public CustomList<Task> generateRandomTasks(int count) {
             System.out.println("🎲 MockFileDataProvider: генерация " + count + " случайных задач (заглушка)");
+            return CustomList.of();
+        }
+
+        @Override
+        public CustomList<Task> generateManualTasks(int count, Scanner sc) {
+            System.out.println("🎲 MockFileDataProvider: добавление " + count + " задач вручную (заглушка)");
             return CustomList.of();
         }
     }

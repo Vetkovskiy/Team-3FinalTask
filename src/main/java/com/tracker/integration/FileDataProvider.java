@@ -1,6 +1,7 @@
 package com.tracker.integration;
 
 import java.util.List;
+import java.util.Scanner;
 
 import com.tracker.collection.CustomList;
 import com.tracker.collection.Task;
@@ -31,4 +32,8 @@ public interface FileDataProvider {
      * @return список сгенерированных задач
      */
     CustomList<Task> generateRandomTasks(int count);
+
+    CustomList<Task> generateManualTasks(int count, Scanner sc);
+
+
 }

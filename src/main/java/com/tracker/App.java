@@ -2,6 +2,8 @@ package com.tracker;
 
 import com.tracker.collection.CustomList;
 import com.tracker.collection.Task;
+import com.tracker.integration.FileDataProvider;
+import com.tracker.integration.FileDataProviderImpl;
 import com.tracker.manager.DataSourceManager;
 import com.tracker.manager.SearchManager;
 import com.tracker.manager.SortManager;
@@ -113,6 +115,7 @@ public class App {
         System.out.println("4. Быстрая сортировка (QuickSort)");
         System.out.println("5. Сортировка пузырьком (BubbleSort)");
         System.out.println("6. Сортировка слиянием (MergeSort)");
+        //System.out.println("6. Сортировка EvenOddSort");
         System.out.print("Выберите тип сортировки: ");
         
         String sortType = scanner.nextLine();
@@ -226,37 +229,7 @@ public class App {
     }
     
     private static void addTaskManually() {
-        System.out.println("\n➕ ДОБАВЛЕНИЕ ЗАДАЧИ:");
-        System.out.print("Название: ");
-        String title = scanner.nextLine();
-        System.out.print("Описание: ");
-        String description = scanner.nextLine();
-        System.out.println("Приоритет (1-LOW, 2-MEDIUM, 3-HIGH, 4-URGENT): ");
-        String priorityInput = scanner.nextLine();
-        System.out.print("Дата выполнения (YYYY-MM-DD): ");
-        String dateInput = scanner.nextLine();
-        
-        try {
-            Task.Priority priority = Task.Priority.valueOf(
-                switch(priorityInput) {
-                    case "1" -> "LOW";
-                    case "2" -> "MEDIUM";
-                    case "3" -> "HIGH"; 
-                    case "4" -> "URGENT";
-                    default -> "MEDIUM";
-                }
-            );
-            
-            java.time.LocalDate dueDate = java.time.LocalDate.parse(dateInput);
-            int newId = taskManager.getNextId();
-            
-            Task newTask = new Task(newId, title, description, priority, dueDate);
-            taskManager.addTask(newTask);
-            
-            System.out.println("✅ Задача добавлена: " + newTask);
-        } catch (Exception e) {
-            System.out.println("❌ Ошибка при добавлении задачи: " + e.getMessage());
-        }
+        dataSourceManager.loadFromManualInput();
     }
     
     private static void shutdown() {
