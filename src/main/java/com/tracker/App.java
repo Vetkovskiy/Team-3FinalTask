@@ -1,14 +1,13 @@
 package com.tracker;
 
+import java.util.Scanner;
+
 import com.tracker.collection.CustomList;
 import com.tracker.collection.Task;
-
 import com.tracker.manager.DataSourceManager;
 import com.tracker.manager.SearchManager;
 import com.tracker.manager.SortManager;
 import com.tracker.manager.TaskManager;
-
-import java.util.Scanner;
 
 
 
@@ -36,6 +35,7 @@ public class App {
                 case "4" -> performSearch();
                 case "5" -> addTaskManually();
                 case "6" -> performAdvancedSearch();
+                case "7" -> saveTasksToFile();
                 case "0" -> {
                     running = false;
                     System.out.println("👋 Завершение работы...");
@@ -56,6 +56,7 @@ public class App {
         System.out.println("4. 🔍 Поиск задач");
         System.out.println("5. ➕ Добавить задачу вручную");
         System.out.println("6. 🔬 Расширенный поиск и подсчет");
+        System.out.println("7. 💾 Сохранить текущие задачи в файл (append)");
         System.out.println("0. ❌ Выход");
         System.out.print("\nВыберите пункт: ");
     }
@@ -116,7 +117,7 @@ public class App {
         System.out.println("4. Быстрая сортировка (QuickSort)");
         System.out.println("5. Сортировка пузырьком (BubbleSort)");
         System.out.println("6. Сортировка слиянием (MergeSort)");
-        //System.out.println("6. Сортировка EvenOddSort");
+        System.out.println("7. EvenOdd сортировка по четности id (четные сортируются)");
         System.out.print("Выберите тип сортировки: ");
         
         String sortType = scanner.nextLine();
@@ -231,6 +232,14 @@ public class App {
     
     private static void addTaskManually() {
         dataSourceManager.loadFromManualInput();
+    }
+
+    private static void saveTasksToFile() {
+        System.out.print("Введите путь к файлу для сохранения: ");
+        String filePath = scanner.nextLine();
+        CustomList<Task> tasks = taskManager.getAllTasks();
+        boolean ok = dataSourceManager.saveTasksAppend(filePath, tasks);
+        System.out.println(ok ? "✅ Сохранено успешно (append)" : "❌ Не удалось сохранить");
     }
     
     private static void shutdown() {
