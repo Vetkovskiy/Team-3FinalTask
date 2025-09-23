@@ -1,6 +1,5 @@
 package com.tracker.manager;
 
-import java.util.List;
 import java.util.Scanner;
 
 import com.tracker.collection.CustomList;
@@ -39,5 +38,14 @@ public class DataSourceManager {
         System.out.print("Сколько задач добавить? ");
         int count = Integer.parseInt(scanner.nextLine());
         return fileDataProvider.generateManualTasks(count, scanner);
+    }
+
+    public boolean saveTasksAppend(String filePath, CustomList<Task> tasks) {
+        try {
+            return fileDataProvider.saveToFile(filePath, tasks);
+        } catch (Exception e) {
+            System.err.println("Ошибка сохранения в файл: " + e.getMessage());
+            return false;
+        }
     }
 }
