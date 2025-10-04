@@ -1,10 +1,9 @@
 package com.tracker.integration;
 
-import java.util.List;
-import java.util.Scanner;
-
 import com.tracker.collection.CustomList;
 import com.tracker.collection.Task;
+
+import java.util.Scanner;
 
 /**
  * Интерфейс для работы с файлами от модуля файлов

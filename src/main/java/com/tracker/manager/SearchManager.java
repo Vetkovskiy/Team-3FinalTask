@@ -5,6 +5,7 @@ import com.tracker.collection.Task;
 import com.tracker.patterns.BinarySearchUtil;
 import com.tracker.patterns.TaskComparators;
 
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -53,11 +54,11 @@ public class SearchManager {
         // Создаем задачу для поиска
         Task searchTask = new Task.Builder()
                 .id(id)
-                .title("")
-                .description("")
+                .title(".")
+                .description(".")
                 .priority(Task.Priority.LOW)
                 .status(Task.Status.NEW)
-                .dueDate(null)
+                .dueDate(LocalDate.now())
                 .build();
 
         int index = BinarySearchUtil.binarySearch(sortedTasks, searchTask, TaskComparators.byId());
